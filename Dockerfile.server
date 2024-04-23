@@ -1,0 +1,17 @@
+FROM ruby:3.3.0-bookworm
+
+RUN apt-get update -qq && apt-get install -y ruby-grpc-tools
+
+WORKDIR /app
+
+COPY Gemfile Gemfile.lock ./
+
+RUN bundle install
+
+COPY . /app
+
+RUN rm -f client.rb
+
+EXPOSE 50051
+
+CMD ["ruby", "app.rb"]

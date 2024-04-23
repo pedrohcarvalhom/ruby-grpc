@@ -1,0 +1,31 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "50051:50051"
+    volumes:
+      - .:/app
+    command: ruby app.rb
+    tty: true
+    stdin_open: true
+    networks:
+      - grpc-network
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    volumes:
+      - .:/app
+    command: ruby client.rb
+    tty: true
+    stdin_open: true
+    depends_on:
+      - server
+    networks:
+      - grpc-network
+
+networks:
+  grpc-network:

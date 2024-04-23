@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service Calculator {
+  rpc Add (CalculatorRequest) returns (CalculatorResponse);
+}
+
+message CalculatorRequest {
+  int32 x = 1;
+  int32 y = 2;
+}
+
+message CalculatorResponse {
+  int32 result = 1;
+}
